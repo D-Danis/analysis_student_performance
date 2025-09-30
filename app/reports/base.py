@@ -24,21 +24,3 @@ class ReportBase(ABC):
         """Вернуть строковое представление отчёта
         (для вывода в консоль)."""
         raise NotImplementedError
-    
-# class ReportBase(ABC):
-#     """Базовый класс отчёта."""
-#     name: str
-
-#     def init(self, datastore: DataStore) -> None:
-#         self.datastore = datastore
-
-#     @abstractmethod
-#     def build(self) -> None:
-#         """Собрать внутренние данные для отчёта."""
-#         raise NotImplementedError
-
-#     @abstractmethod
-#     def render(self) -> str:
-#         """Вернуть строковое представление отчёта (для вывода в консоль)."""
-#         raise NotImplementedError
-  

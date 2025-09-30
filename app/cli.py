@@ -24,7 +24,6 @@ def run(argv: List[str]|None = None) -> int:
         reader = CSVReader(args.files)
         datastore = DataStore()
         datastore.add_records(reader)
-        # передаём precision и top в фабрику отчётов
         extra = {}
         if args.precision is not None:
             extra["precision"] = args.precision
@@ -41,12 +40,3 @@ def run(argv: List[str]|None = None) -> int:
     except Exception as exc:
         print(f"Unexpected error: {exc}", file=sys.stderr)
         return 1
-    
-    # report = createreport(args.report, datastore)
-    # except AppError as exc:
-    #     # централизованная обработка ошибок приложения
-    #     print(f"Error: {exc}", file=sys.stderr)
-    #     return 2
-    # except Exception as exc:
-    #     print(f"Unexpected error: {exc}", file=sys.stderr)
-    #     return 1
