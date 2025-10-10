@@ -9,7 +9,6 @@
 # pytest -v tests/test_datastore.py
 import pytest
 
-from tests.conftest import datastore, populated_datastore
 
 
 def test_empty_datastore_behaviour(datastore):

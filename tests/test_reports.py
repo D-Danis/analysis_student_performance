@@ -3,7 +3,6 @@ from contextlib import nullcontext as does_not_raise
 from tabulate import tabulate
 
 from app.errors import ReportError
-from tests.conftest import datastore
 from app.reports.registry import ReportFactory
 from app.reports.base import ReportBase
 from app.reports.student_performance import StudentPerformanceReport

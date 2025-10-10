@@ -8,7 +8,10 @@ from app.datastore import DataStore
 class StudentPerformanceReport(ReportBase):
     name = "student-performance"
 
-    def __init__(self, datastore: DataStore, precision: int = 2, top: int | None = None) -> None:
+    def __init__(self,
+                 datastore: DataStore,
+                 precision: int = 2,
+                 top: int | None = None) -> None:
         super().__init__(datastore)
         self.precision = precision
         self.top = top
@@ -25,5 +28,11 @@ class StudentPerformanceReport(ReportBase):
 
     def render(self) -> str:
         headers = ["Student", "Average"]
-        table = [(name, f"{avg:.{self.precision}f}") for name, avg in self._rows]
-        return tabulate(table, headers=headers, tablefmt="github", stralign="left", numalign="right")
+        table = [(name,
+                  f"{avg:.{self.precision}f}")
+                 for name, avg in self._rows]
+        return tabulate(table, 
+                        headers=headers, 
+                        tablefmt="github", 
+                        stralign="left", 
+                        numalign="right")

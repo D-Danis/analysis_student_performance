@@ -1,8 +1,16 @@
 import csv
-from typing import Iterable, Iterator, List
 from dataclasses import dataclass
+from typing import (
+                    Iterable,
+                    Iterator,
+                    List
+                    )
 
-from app.errors import FileReadError, CSVFormatError, RecordParseError
+from app.errors import (
+                        FileReadError,
+                        CSVFormatError,
+                        RecordParseError
+                        )
 
 
 @dataclass
@@ -15,22 +23,36 @@ class Record:
 
 
 class CSVReader:
-    REQUIRED_FIELDS = {"student_name", "subject", "teacher_name", "date", "grade"}
+    REQUIRED_FIELDS = {
+        "student_name",
+        "subject",
+        "teacher_name",
+        "date",
+        "grade"
+        }
 
-    def __init__(self, paths: Iterable[str], encoding: str = "utf-8") -> None:
+    def __init__(self, 
+                 paths: Iterable[str], 
+                 encoding: str = "utf-8") -> None:
         self.paths: List[str] = list(paths)
         self.encoding = encoding
 
     def __iter__(self) -> Iterator[Record]:
         for path in self.paths:
             try:
-                with open(path, newline="", encoding=self.encoding) as fh:
+                with open(path,
+                          newline="",
+                          encoding=self.encoding) as fh:
                     reader = csv.DictReader(fh)
                     if not reader.fieldnames:
-                        raise CSVFormatError(f"Empty or missing header in {path}", code="csv.header.missing")
+                        raise CSVFormatError(
+                            f"Empty or missing header in {path}",
+                            code="csv.header.missing")
                     fields = {fn.strip() for fn in reader.fieldnames if fn}
                     if not self.REQUIRED_FIELDS.issubset(fields):
-                        raise CSVFormatError(f"Required columns missing in {path}", code="csv.columns.missing")
+                        raise CSVFormatError(
+                            f"Required columns missing in {path}",
+                            code="csv.columns.missing")
                     for line_no, row in enumerate(reader, start=2):
                         try:
                             name = (row.get("student_name") or "").strip()
@@ -47,7 +69,9 @@ class CSVReader:
                                 grade=grade,
                             )
                         except ValueError:
-                            raise RecordParseError(f"Invalid grade at {path}:{line_no}", code="record.grade.invalid")
+                            raise RecordParseError(
+                                f"Invalid grade at {path}:{line_no}",
+                                code="record.grade.invalid")
             except FileNotFoundError as exc:
                 raise FileReadError(f"File not found: {path}") from exc
             except OSError as exc:

@@ -1,11 +1,9 @@
 #!/usr/bin/.venv python3
 import sys
-import logging
 
 from app.cli import run
 
 
-logging.basicConfig(level=logging.INFO)
 
 
 def main() -> None:

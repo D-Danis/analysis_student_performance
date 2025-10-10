@@ -19,8 +19,12 @@ class ReportFactory:
     }
 
     @classmethod
-    def create(cls, name: str, datastore: DataStore, **kwargs: object) -> ReportBase:
+    def create(cls,
+               name: str,
+               datastore: DataStore,
+               **kwargs: object) -> ReportBase:
         ctor = cls._registry.get(name)
         if not ctor:
-            raise ReportError(f"Unknown report: {name}", code="report.unknown")
+            raise ReportError(f"Unknown report: {name}",
+                              code="report.unknown")
         return ctor(datastore, **kwargs)

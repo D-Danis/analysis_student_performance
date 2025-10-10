@@ -28,7 +28,12 @@ def write_csv_fn(tmp_path):
 @pytest.fixture
 def sample_records():
     def makerecord(name: str, subject: str, teacher: str, date: str, grade: float):
-        return Record(student_name=name, subject=subject, teacher_name=teacher, date=date, grade=grade)
+        return Record(
+            student_name=name,
+            subject=subject,
+            teacher_name=teacher,
+            date=date,
+            grade=grade)
     return makerecord
 
 
